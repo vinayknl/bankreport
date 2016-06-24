@@ -8,7 +8,7 @@ import java.util.Date;
 public interface TransactionEntry {
 
     Date getDate();
-    String getDetail();
+    String getDetails();
     String getAccountId();
     double getAmount();
     String getNotes();
