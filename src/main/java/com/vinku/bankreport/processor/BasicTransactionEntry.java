@@ -65,4 +65,16 @@ public class BasicTransactionEntry implements TransactionEntry{
     public void setType(TransactionType transactionType) {
         this.transactionType = transactionType;
     }
+
+    @Override
+    public String toString() {
+        return "BasicTransactionEntry{" +
+                "date=" + date +
+                ", details='" + details + '\'' +
+                ", accountId='" + accountId + '\'' +
+                ", amount=" + amount +
+                ", notes='" + notes + '\'' +
+                ", transactionType=" + transactionType +
+                '}';
+    }
 }

@@ -10,5 +10,11 @@ public enum BasicTransactionType implements TransactionType{
     LIFESTYLE,
     CHILDCARE,
     TRANSPORT,
-    MISC;
+    MISC,
+    SAVINGS_WD,
+    DEPOSIT_SAVING,
+            TRANSFERS,
+            DEPOSITS,
+            CASH_WITHDRAWAL,
+    UNKNOWN;
 }

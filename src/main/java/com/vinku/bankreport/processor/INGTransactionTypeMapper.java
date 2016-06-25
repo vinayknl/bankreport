@@ -1,33 +1,55 @@
 package com.vinku.bankreport.processor;
 
-import java.util.HashMap;
-import java.util.Map;
+import javax.swing.text.html.Option;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.*;
 
 import static com.vinku.bankreport.processor.BasicTransactionType.*;
+import static java.util.Objects.requireNonNull;
 
 /**
  * Created by vinaykushi on 6/24/16.
  */
 public class INGTransactionTypeMapper implements TransactionTypeMapper{
 
-    private Map<String, TransactionType> detailsToTransactionTypeMap = new HashMap<>();
+    private SortedMap<String, TransactionType> detailsToTransactionTypeMap = new TreeMap<>();
+    private static final String MAPPING_PROPERTIES_FILE = "ing.properties";
 
     public INGTransactionTypeMapper() {
         initTypeMap();
     }
 
     private void initTypeMap() {
-        // TODO: Move it to properties file
+        try(InputStream inputStream = this.getClass().getClassLoader().getResourceAsStream(MAPPING_PROPERTIES_FILE)) {
+            Properties properties = new Properties();
+            properties.load(inputStream);
+            Arrays.asList(BasicTransactionType.values()).stream().forEach(e -> loadTransactionMap(e, properties));
 
-        // Groceries Map
-        detailsToTransactionTypeMap.put("ALBERT HEIJN".toLowerCase(), SUBSISTANCE);
-
-
-
+        } catch (IOException e) {
+            throw new RuntimeException("Error loading mapping file", e);
+        }
     }
 
+    private void loadTransactionMap(BasicTransactionType type, Properties properties) {
+        String allValues = requireNonNull(properties.getProperty(type.name()));
+
+        Arrays.stream(allValues.split(",")).
+                forEach(e -> detailsToTransactionTypeMap.put(e.toLowerCase().trim(), type));
+    }
     @Override
     public TransactionType getMappedType(String transactionDetail) {
-        return null;
+        Optional<String> matchingKey = this.detailsToTransactionTypeMap.keySet().parallelStream().filter(e -> transactionDetail.toLowerCase().contains(e)).findAny();
+transactionDetail.toLowerCase().contains(this.detailsToTransactionTypeMap.get("albert heijn"))
+        if(matchingKey.isPresent()) {
+            return this.detailsToTransactionTypeMap.get(matchingKey.get());
+        }
+        return UNKNOWN;
     }
+
+    public Map<String, TransactionType> getAllMappedType(){
+        return this.detailsToTransactionTypeMap;
+    }
+
 }

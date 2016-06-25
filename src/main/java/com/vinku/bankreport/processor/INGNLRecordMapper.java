@@ -7,10 +7,15 @@ import org.apache.commons.csv.CSVRecord;
  */
 public class INGNLRecordMapper implements RecordMapper{
 
-
+    private TransactionTypeMapper mapper = new INGTransactionTypeMapper();
 
     @Override
     public TransactionEntry mapReportEntry(CSVRecord record) {
-        return null;
+        BasicTransactionEntry entry = new BasicTransactionEntry();
+
+        entry.setType(mapper.getMappedType(record.get("\"Naam / Omschrijving\"")));
+        entry.setDetails(record.get("\"Naam / Omschrijving\""));
+
+        return entry;
     }
 }
