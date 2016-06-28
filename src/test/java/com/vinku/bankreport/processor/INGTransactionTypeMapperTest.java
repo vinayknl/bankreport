@@ -1,5 +1,7 @@
 package com.vinku.bankreport.processor;
 
+import com.vinku.bankreport.processor.api.TransactionType;
+import com.vinku.bankreport.processor.ing.INGTransactionTypeMapper;
 import org.junit.Test;
 
 import java.util.Map;

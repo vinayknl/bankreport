@@ -1,18 +1,20 @@
-package com.vinku.bankreport.processor;
+package com.vinku.bankreport.processor.ing;
 
-import javax.swing.text.html.Option;
-import java.io.FileInputStream;
+import com.vinku.bankreport.processor.common.BasicTransactionType;
+import com.vinku.bankreport.processor.api.TransactionType;
+import com.vinku.bankreport.processor.api.TransactionTypeMapper;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.*;
 
-import static com.vinku.bankreport.processor.BasicTransactionType.*;
+import static com.vinku.bankreport.processor.common.BasicTransactionType.*;
 import static java.util.Objects.requireNonNull;
 
 /**
  * Created by vinaykushi on 6/24/16.
  */
-public class INGTransactionTypeMapper implements TransactionTypeMapper{
+public class INGTransactionTypeMapper implements TransactionTypeMapper {
 
     private SortedMap<String, TransactionType> detailsToTransactionTypeMap = new TreeMap<>();
     private static final String MAPPING_PROPERTIES_FILE = "ing.properties";

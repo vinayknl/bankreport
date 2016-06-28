@@ -1,4 +1,4 @@
-package com.vinku.bankreport.processor;
+package com.vinku.bankreport.processor.api;
 
 /**
  * Created by vinaykushi on 6/22/16.
